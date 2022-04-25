@@ -2,6 +2,9 @@
 
 ## Lab Requirements
 
+![REST](https://user-images.githubusercontent.com/84699682/165188917-ed845c00-bbdd-43a3-8e72-71a9e18bf27e.jpg)
+
+
 Students will be creating and styling a Counter application. Look for the following attributes
 
 - `Header`, `Footer`, and `Counter` components to separate files
