@@ -4,7 +4,7 @@ function Header() {
 
     return (
       <header>
-        <h1>header: header</h1>
+        <h1>RESTy</h1>
       </header>
     );
   };

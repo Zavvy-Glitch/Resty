@@ -1,12 +1,20 @@
-import React from 'react';
+import React from "react";
+import ReactJson from "react-json-view";
+import { useEffect } from "react";
 
 function Results(props) {
+  useEffect(() => {
+    console.log("loading before...");
+  }, [props.data]);
 
+  useEffect(() => {
+    return () => console.log("loading after...");
+  });
   return (
-      <section>
-        <pre>{props.data ? JSON.stringify(props.data, undefined, 2) : null}</pre>
-      </section>
-    );
-  }
+    <section>
+      <pre>{props.data ? <ReactJson src={props.data} theme="rjv-default"/> : null}</pre>
+    </section>
+  );
+}
 
 export default Results;
