@@ -3,7 +3,7 @@ import { useState } from "react";
 
 import "./form.scss";
 
-function Form({ handleApiCall }) {
+function Form({ handleApiCall, urlParams }) {
   const [data, setData] = useState("");
   const [method, setMethod] = useState("GET");
   const [url, setUrl] = useState("");
@@ -17,6 +17,7 @@ function Form({ handleApiCall }) {
       data: data,
     };
     handleApiCall(formData);
+    urlParams(formData.url)
   };
 
   const handleMethod = (e) => {

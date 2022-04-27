@@ -1,5 +1,6 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import axios from "axios";
 import "./app.scss";
 
 // Let's talk about using index.js and some other name in the component folder
@@ -12,30 +13,40 @@ import Results from "./components/results";
 function App() {
   const [data, setData] = useState({});
   const [requestParams, setRequestParams] = useState({});
+  const [urlParams, setUrlParams] = useState(null)
 
-  const callApi = (formParams) => {
-    // mock output
-    const data = {
-      count: 2,
-      results: [
-        { name: "fake thing 1", url: "http://fakethings.com/1" },
-        { name: "fake thing 2", url: "http://fakethings.com/2" },
-      ],
-    };
-    setData(data);
-    setRequestParams({ ...requestParams });
+  const callApi = async (requestParams) => {
+    setRequestParams(requestParams);
+    console.log(requestParams);
   };
+  
+  useEffect(() => {
+    if(urlParams) {
+      try {
+        async function fetchData() {
+          let apiUrl = urlParams;
+          const response = await axios.get(apiUrl);
+          const data = {
+            Headers: response.headers,
+            count: response.data.count,
+            Response: response
+          };
+          setData(data);
+        }
+        fetchData();
+      } catch (e) {
+        console.log(e);
+      }
+    }
+  }, [urlParams]);
+
 
   return (
     <React.Fragment>
       <Header />
       <div>Request Method: {requestParams.method}</div>
       <div>URL: {requestParams.url}</div>
-      <Form
-        handleApiCall={callApi}
-        setRequestParams={setRequestParams}
-        requestParams={requestParams}
-      />
+      <Form handleApiCall={callApi} urlParams = {setUrlParams} />
       {data ? <Results data={data} /> : <p id="loading">Loading...</p>}
       <Footer />
     </React.Fragment>
