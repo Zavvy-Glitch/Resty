@@ -12,7 +12,7 @@ function Results(props) {
   });
   return (
     <section>
-      <pre>{props.data ? <ReactJson src={props.data} theme="rjv-default"/> : null}</pre>
+      <pre>{props.data ? <ReactJson src={props.data} theme="solarized"/> : null}</pre>
     </section>
   );
 }
