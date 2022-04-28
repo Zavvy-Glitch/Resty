@@ -10,6 +10,7 @@ function Results(props) {
   useEffect(() => {
     return () => console.log("loading after...");
   });
+  
   return (
     <section>
       <pre>{props.data ? <ReactJson src={props.data} theme="solarized"/> : null}</pre>

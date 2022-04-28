@@ -13,40 +13,37 @@ import Results from "./components/results";
 function App() {
   const [data, setData] = useState({});
   const [requestParams, setRequestParams] = useState({});
-  const [urlParams, setUrlParams] = useState(null)
-
-  const callApi = async (requestParams) => {
-    setRequestParams(requestParams);
-    console.log(requestParams);
-  };
-  
+ 
   useEffect(() => {
-    if(urlParams) {
+    if(requestParams.url) {
       try {
         async function fetchData() {
-          let apiUrl = urlParams;
-          const response = await axios.get(apiUrl);
-          const data = {
+          let apiUrl = requestParams.url;
+          const response = await axios(apiUrl);
+          const resultData = {
             Headers: response.headers,
             count: response.data.count,
             Response: response
           };
-          setData(data);
+          setData(resultData);
         }
         fetchData();
       } catch (e) {
         console.log(e);
       }
     }
-  }, [urlParams]);
-
+  }, [requestParams]);
+  
+  const callApi = (requestParams) => {
+    setRequestParams(requestParams);
+  };
 
   return (
     <React.Fragment>
       <Header />
-      <div>Request Method: {requestParams.method}</div>
-      <div>URL: {requestParams.url}</div>
-      <Form handleApiCall={callApi} urlParams = {setUrlParams} />
+      <div data-testid='reqDisplay'>Request Method: {requestParams.method}</div>
+      <div data-testid="urlDisplay">URL: {requestParams.url}</div>
+      <Form handleApiCall={callApi} />
       {data ? <Results data={data} /> : <p id="loading">Loading...</p>}
       <Footer />
     </React.Fragment>
