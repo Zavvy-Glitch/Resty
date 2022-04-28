@@ -3,21 +3,19 @@ import { useState } from "react";
 
 import "./form.scss";
 
-function Form({ handleApiCall, urlParams }) {
+function Form({ handleApiCall }) {
   const [data, setData] = useState("");
   const [method, setMethod] = useState("GET");
   const [url, setUrl] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setUrl(e.target.url.value);
     const formData = {
       method: method,
       url: url,
       data: data,
     };
     handleApiCall(formData);
-    urlParams(formData.url)
   };
 
   const handleMethod = (e) => {
@@ -39,11 +37,12 @@ function Form({ handleApiCall, urlParams }) {
           <input
             placeholder="http://randomAPI.org/api/"
             id="urlInput"
+            data-testid="urlInput"
             onChange={handleChange}
             name="url"
             type="text"
           />
-          <button id="submitButton" type="submit">
+          <button id="submitButton" data-testid="submitButton" type="submit">
             GO!
           </button>
         </label>
